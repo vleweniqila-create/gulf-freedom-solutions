@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tell Us About Your Business | Gulf Freedom Solutions</title>
+<meta name="description" content="Answer a few quick questions and Gulf Freedom Solutions will reach out to set up a free, no-pressure call.">
+<script>document.documentElement.className='js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/start.css">
+</head>
+<body class="q">
+<div class="px" id="px" aria-hidden="true" style="background:#0F1E3D"></div>
+
+<header class="bar">
+  <a class="logo" href="index.html" aria-label="Gulf Freedom Solutions home">
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1B2D57"/><circle class="sun" cx="20" cy="14" r="5" fill="#3DD6B0"/><path d="M8 23 q6 -5 12 0 t12 0" stroke="#5B8CFF" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M8 29 q6 -5 12 0 t12 0" stroke="#A58BFF" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    <span><b>Gulf Freedom</b><small>SOLUTIONS</small></span>
+  </a>
+  <div class="bar-right">
+    <a class="btn btn-ghost bar-cta" href="index.html">Back to site</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Site">
+    <a href="index.html" data-img="https://images.unsplash.com/photo-1703556891303-99ed089279e6?auto=format&fit=crop&w=900&q=70"><span>Home</span></a>
+    <a href="index.html#services" data-img="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=70"><span style="--d:.05s">Services</span></a>
+    <a href="index.html#quote" data-img="https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?auto=format&fit=crop&w=900&q=70"><span style="--d:.1s">Pricing</span></a>
+    <a href="team/niki.html" data-img="assets/img/niki-1.jpg"><span style="--d:.15s">Meet Niki</span></a>
+    <a href="team/partner.html" data-img="https://images.unsplash.com/photo-1568658176307-bfbd2873abda?auto=format&fit=crop&w=900&q=70"><span style="--d:.2s">Meet Michael</span></a>
+    <a href="start.html" data-img="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=70"><span style="--d:.25s" class="grad">Start a project</span></a>
+  </nav>
+  <aside>
+    <div class="menu-peek" aria-hidden="true"></div>
+    <div><b>Say hello</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a><br><a href="tel:+18505550123">(850) 555-0123</a></div>
+    <div><b>Serving</b>Panama City · Lynn Haven · Callaway · Panama City Beach</div>
+  </aside>
+</div>
+
+<main class="stage" id="main">
+  <aside class="rail" aria-hidden="true">
+    <div>
+      <div class="count"><span id="n">01</span><small>/ 11</small></div>
+      <p class="label" id="lbl">Getting started</p>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="why">
+      <span>About 3 minutes.</span>
+      <span>No pressure, no spam. We never sell your information.</span>
+      <span>We reply within one business day to set up a free call.</span>
+    </div>
+  </aside>
+
+  <div class="board" id="board">
+    <div class="dust" id="dust" aria-hidden="true"></div>
+
+    <!-- FORM: replace YOUR_FORM_ID below with the ID from your Formspree form -->
+    <form id="qform" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="New website questionnaire">
+
+      <section class="step on" data-label="Getting started">
+        <p class="kicker">Let's get to know you</p>
+        <h1>Tell us about your business. We'll show you how to grow it.</h1>
+        <p class="hint">Eleven quick questions. Your answers help us come to your free call with real ideas, not a sales pitch.</p>
+        <div class="nav"><button type="button" class="btn btn-green next" data-magnet>Let's go <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><span class="enter">or press <kbd>Enter</kbd></span></div>
+      </section>
+
+      <section class="step" data-label="About you">
+        <p class="kicker">Question 1</p>
+        <h2><label for="f-name">First things first. What's your name?</label></h2>
+        <input class="big-in" id="f-name" name="name" type="text" autocomplete="name" placeholder="Type your name" required>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button><span class="enter">press <kbd>Enter</kbd></span></div>
+      </section>
+
+      <section class="step" data-label="Your business">
+        <p class="kicker">Question 2</p>
+        <h2><label for="f-biz">Nice to meet you, <span data-name>friend</span>. What's your business called?</label></h2>
+        <input class="big-in" id="f-biz" name="business" type="text" autocomplete="organization" placeholder="Business name (or your idea)">
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button><span class="enter">press <kbd>Enter</kbd></span></div>
+      </section>
+
+      <section class="step" data-label="Your industry" data-auto>
+        <p class="kicker">Question 3</p>
+        <h2 id="t-type">What kind of business is it?</h2>
+        <div class="chips" role="radiogroup" aria-labelledby="t-type">
+          <label class="chip"><input type="radio" name="business_type" value="Restaurant, cafe or food truck"><span><kbd>A</kbd>Restaurant, cafe or food truck</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Home services"><span><kbd>B</kbd>Home services</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Beauty, barber or salon"><span><kbd>C</kbd>Beauty, barber or salon</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Retail shop"><span><kbd>D</kbd>Retail shop</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Health, fitness or wellness"><span><kbd>E</kbd>Health, fitness or wellness</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Tourism, rentals or beach"><span><kbd>F</kbd>Tourism, rentals or beach</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Church, ministry or nonprofit"><span><kbd>G</kbd>Church, ministry or nonprofit</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Professional services"><span><kbd>H</kbd>Professional services</span></label>
+          <label class="chip"><input type="radio" name="business_type" value="Something else"><span><kbd>I</kbd>Something else</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="Where you are now" data-auto>
+        <p class="kicker">Question 4</p>
+        <h2 id="t-now">Where can people find you online today?</h2>
+        <div class="chips" role="radiogroup" aria-labelledby="t-now">
+          <label class="chip"><input type="radio" name="online_today" value="Nowhere yet"><span><kbd>A</kbd>Nowhere yet</span></label>
+          <label class="chip"><input type="radio" name="online_today" value="Social page only"><span><kbd>B</kbd>Just a Facebook or Instagram page</span></label>
+          <label class="chip"><input type="radio" name="online_today" value="Outdated website"><span><kbd>C</kbd>I have a website, but it's outdated</span></label>
+          <label class="chip"><input type="radio" name="online_today" value="Website not bringing customers"><span><kbd>D</kbd>I have a website, but it doesn't bring customers</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="What you need">
+        <p class="kicker">Question 5 · pick any</p>
+        <h2 id="t-help">What can we help you with?</h2>
+        <div class="chips" role="group" aria-labelledby="t-help">
+          <label class="chip"><input type="checkbox" name="help_with[]" value="New website"><span><kbd>A</kbd>A new website</span></label>
+          <label class="chip"><input type="checkbox" name="help_with[]" value="Website management"><span><kbd>B</kbd>Someone to manage my website</span></label>
+          <label class="chip"><input type="checkbox" name="help_with[]" value="Social media ads"><span><kbd>C</kbd>Social media ads</span></label>
+          <label class="chip"><input type="checkbox" name="help_with[]" value="Not sure yet"><span><kbd>D</kbd>Not sure yet, help me decide</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button><span class="enter">press <kbd>Enter</kbd></span></div>
+      </section>
+
+      <section class="step" data-label="Your goal" data-auto>
+        <p class="kicker">Question 6</p>
+        <h2 id="t-goal">If we nail one thing this year, what should it be?</h2>
+        <div class="chips" role="radiogroup" aria-labelledby="t-goal">
+          <label class="chip"><input type="radio" name="goal" value="More calls and customers"><span><kbd>A</kbd>More calls and customers</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Show up on Google"><span><kbd>B</kbd>Show up when people search Google</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Look more professional"><span><kbd>C</kbd>Look more professional</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Online booking or ordering"><span><kbd>D</kbd>Let customers book or order online</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Less time on marketing"><span><kbd>E</kbd>Spend less time on marketing myself</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="Your story">
+        <p class="kicker">Question 7 · optional</p>
+        <h2><label for="f-story">What makes your business special, <span data-name>friend</span>?</label></h2>
+        <p class="hint">Why you started, what customers love, what you're proud of. This is what we'll help the world see.</p>
+        <textarea class="big-in" id="f-story" name="story" rows="4" placeholder="Tell us in your own words…"></textarea>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="Budget" data-auto>
+        <p class="kicker">Question 8</p>
+        <h2 id="t-budget">About how much could you invest in marketing each month?</h2>
+        <div class="chips" role="radiogroup" aria-labelledby="t-budget">
+          <label class="chip"><input type="radio" name="budget" value="Under $200"><span><kbd>A</kbd>Under $200</span></label>
+          <label class="chip"><input type="radio" name="budget" value="$200 to $500"><span><kbd>B</kbd>$200 to $500</span></label>
+          <label class="chip"><input type="radio" name="budget" value="$500 to $1,000"><span><kbd>C</kbd>$500 to $1,000</span></label>
+          <label class="chip"><input type="radio" name="budget" value="Over $1,000"><span><kbd>D</kbd>Over $1,000</span></label>
+          <label class="chip"><input type="radio" name="budget" value="Not sure yet"><span><kbd>E</kbd>Not sure yet</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="Timing" data-auto>
+        <p class="kicker">Question 9</p>
+        <h2 id="t-when">When would you like to get started?</h2>
+        <div class="chips" role="radiogroup" aria-labelledby="t-when">
+          <label class="chip"><input type="radio" name="timeline" value="As soon as possible"><span><kbd>A</kbd>As soon as possible</span></label>
+          <label class="chip"><input type="radio" name="timeline" value="Within the next month"><span><kbd>B</kbd>Within the next month</span></label>
+          <label class="chip"><input type="radio" name="timeline" value="In 1 to 3 months"><span><kbd>C</kbd>In 1 to 3 months</span></label>
+          <label class="chip"><input type="radio" name="timeline" value="Just exploring"><span><kbd>D</kbd>Just exploring</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Continue</button></div>
+      </section>
+
+      <section class="step" data-label="How to reach you">
+        <p class="kicker">Question 10</p>
+        <h2>Where should we send your ideas, <span data-name>friend</span>?</h2>
+        <div class="two">
+          <div class="field"><label for="f-email">Email</label><input class="big-in" id="f-email" name="email" type="email" autocomplete="email" placeholder="you@business.com" required></div>
+          <div class="field"><label for="f-phone">Phone (optional)</label><input class="big-in" id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="(850) 000-0000"></div>
+        </div>
+        <div class="chips" role="radiogroup" aria-label="Best way to reach you">
+          <label class="chip"><input type="radio" name="contact_pref" value="Email" checked><span>Email me</span></label>
+          <label class="chip"><input type="radio" name="contact_pref" value="Call"><span>Call me</span></label>
+          <label class="chip"><input type="radio" name="contact_pref" value="Text"><span>Text me</span></label>
+        </div>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Review my answers</button><span class="enter">press <kbd>Enter</kbd></span></div>
+      </section>
+
+      <section class="step" data-label="Review">
+        <p class="kicker">Question 11 · last step</p>
+        <h2>Look good, <span data-name>friend</span>?</h2>
+        <dl class="review" id="review"></dl>
+        <p class="err" role="alert"></p>
+        <div class="nav"><button type="button" class="back">← Back</button><button type="submit" class="btn btn-green" data-magnet>Send my answers <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      </section>
+
+      <section class="step" data-label="All set" id="done" aria-live="polite">
+        <div class="done-burst" id="burst" aria-hidden="true"></div>
+        <p class="kicker">Received</p>
+        <h2>Thank you, <span data-name>friend</span>. Let's go far together.</h2>
+        <p class="hint">We'll read every answer and reach out within one business day to set up your free call.</p>
+        <div class="nav"><a class="btn btn-ghost" href="index.html">Back to the site</a><a class="btn btn-green" href="team/niki.html">Meet the team</a></div>
+      </section>
+    </form>
+  </div>
+</main>
+
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var form = document.getElementById('qform');
+  var steps = [].slice.call(form.querySelectorAll('.step'));
+  var board = document.getElementById('board');
+  var cur = 0, busy = false, total = 11;
+
+  /* progress meter */
+  var meter = document.getElementById('meter');
+  for (var m = 0; m < total; m++) meter.appendChild(document.createElement('i'));
+  var dots = [].slice.call(meter.children);
+
+  /* floating pixels */
+  var dust = document.getElementById('dust'), colors = ['#3DD6B0', '#5B8CFF', '#A58BFF', '#2457D6'];
+  if (!reduce) for (var d = 0; d < 26; d++) {
+    var p = document.createElement('i');
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.top = (60 + Math.random() * 50) + '%';
+    p.style.background = colors[d % 4];
+    p.style.animationDelay = (-Math.random() * 9).toFixed(2) + 's';
+    p.style.animationDuration = (7 + Math.random() * 8).toFixed(2) + 's';
+    var s = 6 + Math.round(Math.random() * 8); p.style.width = p.style.height = s + 'px';
+    dust.appendChild(p);
+  }
+
+  /* pixel overlay for step changes */
+  var qpx = document.createElement('div');
+  qpx.className = 'qpx';
+  qpx.setAttribute('aria-hidden', 'true');
+  board.appendChild(qpx);
+  var cells = [];
+  function buildCells() {
+    var r = board.getBoundingClientRect(), size = window.innerWidth < 700 ? 36 : 56;
+    var cols = Math.ceil(r.width / size), rows = Math.ceil(r.height / size);
+    qpx.style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    qpx.style.gridTemplateRows = 'repeat(' + rows + ',1fr)';
+    qpx.innerHTML = '';
+    for (var i = 0; i < cols * rows; i++) qpx.appendChild(document.createElement('i'));
+    cells = [].slice.call(qpx.children);
+  }
+  buildCells();
+  window.addEventListener('resize', buildCells);
+  function wave(dir) {
+    /* sweep pixels in a diagonal wave with a little randomness */
+    var cols = qpx.style.gridTemplateColumns.match(/\d+/)[0] | 0;
+    cells.forEach(function (c, i) {
+      var x = i % cols, y = (i / cols) | 0;
+      var t = ((dir > 0 ? x : cols - x) * 0.018) + y * 0.01 + Math.random() * 0.12;
+      c.style.transitionDelay = t.toFixed(3) + 's';
+    });
+  }
+
+  function name() { var v = form.name.value.trim().split(' ')[0]; return v || 'friend'; }
+  function render() {
+    steps.forEach(function (s, i) { s.classList.toggle('on', i === cur); });
+    [].forEach.call(document.querySelectorAll('[data-name]'), function (e) { e.textContent = name(); });
+    var n = Math.min(cur, total); if (n < 1) n = 1;
+    document.getElementById('n').textContent = (n < 10 ? '0' : '') + n;
+    document.getElementById('lbl').textContent = steps[cur].dataset.label;
+    dots.forEach(function (dt, i) { dt.classList.toggle('on', i < cur - 1 || cur > total); dt.classList.toggle('now', i === cur - 1 && cur <= total); });
+    if (steps[cur].querySelector('#review')) buildReview();
+    var f = steps[cur].querySelector('input.big-in,textarea');
+    if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, 60);
+    else { var h = steps[cur].querySelector('h1,h2'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } }
+  }
+  function go(to) {
+    if (busy || to < 0 || to >= steps.length || to === cur) return;
+    if (reduce) { cur = to; render(); return; }
+    busy = true;
+    var dir = to > cur ? 1 : -1;
+    wave(dir);
+    qpx.classList.add('cover');
+    setTimeout(function () {
+      cur = to; render();
+      window.scrollTo(0, 0);
+      wave(dir);
+      qpx.classList.remove('cover');
+      setTimeout(function () { busy = false; }, 500);
+    }, 520);
+  }
+
+  function valid(step) {
+    var err = step.querySelector('.err'); if (err) err.textContent = '';
+    var req = step.querySelector('input[required]');
+    if (req && !req.value.trim()) { if (err) err.textContent = 'Please fill this in to keep going.'; req.focus(); return false; }
+    var em = step.querySelector('input[type=email]');
+    if (em && em.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) { err.textContent = 'That email does not look quite right.'; em.focus(); return false; }
+    if (step.hasAttribute('data-auto') && !step.querySelector('input:checked')) { if (err) err.textContent = 'Pick the one that fits best.'; return false; }
+    return true;
+  }
+  function next() { if (valid(steps[cur])) go(cur + 1); }
+
+  form.addEventListener('click', function (e) {
+    if (e.target.closest('.next')) { e.preventDefault(); next(); }
+    if (e.target.closest('.back')) { e.preventDefault(); go(cur - 1); }
+    var ed = e.target.closest('[data-edit]'); if (ed) { e.preventDefault(); go(+ed.dataset.edit); }
+  });
+  form.addEventListener('change', function (e) {
+    var st = e.target.closest('.step');
+    if (e.target.type === 'radio' && st && st.hasAttribute('data-auto')) setTimeout(next, 380);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (document.documentElement.classList.contains('menu-open')) return;
+    var st = steps[cur];
+    if (e.key === 'Enter' && !e.shiftKey && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+      if (st.querySelector('#review') || st.id === 'done') return;
+      e.preventDefault(); next(); return;
+    }
+    if (/^[a-i]$/i.test(e.key) && !/INPUT|TEXTAREA/.test(e.target.tagName) || (/^[a-i]$/i.test(e.key) && e.target.type && /radio|checkbox/.test(e.target.type))) {
+      var chips = st.querySelectorAll('.chip input'), idx = e.key.toLowerCase().charCodeAt(0) - 97;
+      if (chips[idx] && st.querySelector('kbd')) { chips[idx].click(); }
+    }
+  });
+
+  var labels = { name: 'Name', business: 'Business', business_type: 'Type', online_today: 'Online today', 'help_with[]': 'Help with', goal: 'Main goal', story: 'Your story', budget: 'Monthly budget', timeline: 'Start', email: 'Email', phone: 'Phone', contact_pref: 'Reach me by' };
+  function buildReview() {
+    var fd = new FormData(form), out = {}, where = {};
+    fd.forEach(function (v, k) { if (!labels[k] || !String(v).trim()) return; out[k] = out[k] ? out[k] + ', ' + v : v; });
+    steps.forEach(function (s, i) { [].forEach.call(s.querySelectorAll('[name]'), function (el) { if (where[el.name] == null) where[el.name] = i; }); });
+    var html = '';
+    Object.keys(labels).forEach(function (k) {
+      if (!out[k]) return;
+      var v = String(out[k]); if (v.length > 120) v = v.slice(0, 117) + '…';
+      html += '<div><dt>' + labels[k] + '</dt><dd></dd><button type="button" data-edit="' + where[k] + '">Edit</button></div>';
+    });
+    var rv = document.getElementById('review'); rv.innerHTML = html;
+    var i = 0; Object.keys(labels).forEach(function (k) { if (!out[k]) return; var v = String(out[k]); if (v.length > 120) v = v.slice(0, 117) + '…'; rv.querySelectorAll('dd')[i++].textContent = v; });
+  }
+
+  function burst() {
+    var b = document.getElementById('burst'); b.innerHTML = '';
+    for (var i = 0; i < 16; i++) { var c = document.createElement('i'); c.style.background = colors[i % 4]; c.style.animationDelay = (i * 0.04) + 's'; b.appendChild(c); }
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var err = steps[cur].querySelector('.err'); err.textContent = '';
+    var btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.firstChild.textContent = 'Sending… ';
+    var action = form.getAttribute('action');
+    function finish() { burst(); go(steps.length - 1); }
+    if (action.indexOf('YOUR_FORM_ID') > -1) {
+      /* form service not connected yet: open an email with the answers instead */
+      var fd = new FormData(form), body = '';
+      fd.forEach(function (v, k) { if (labels[k] && String(v).trim()) body += labels[k] + ': ' + v + '\n'; });
+      location.href = 'mailto:hello@gulffreedomsolutions.com?subject=' + encodeURIComponent('New website questionnaire') + '&body=' + encodeURIComponent(body);
+      setTimeout(finish, 400);
+      return;
+    }
+    fetch(action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(); finish(); })
+      .catch(function () { btn.disabled = false; btn.firstChild.textContent = 'Send my answers '; err.textContent = 'Something went wrong. Please try again, or email hello@gulffreedomsolutions.com.'; });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
