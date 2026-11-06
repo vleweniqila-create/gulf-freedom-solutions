@@ -144,10 +144,22 @@ button{font:inherit}
 .foot a{color:var(--soft)}
 .foot-bottom{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;border-top:1px solid var(--navy3);padding-top:24px;margin-top:64px;font-size:14px}
 
-/* ---------- cursor dot ---------- */
-.cur{position:fixed;left:0;top:0;z-index:300;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--seafoam);pointer-events:none;mix-blend-mode:difference;transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease),opacity .3s;opacity:0}
-.cur.big{width:64px;height:64px;margin:-32px 0 0 -32px}
-@media (hover:none){.cur{display:none}}
+/* ---------- pixel cursor ---------- */
+.cur,.cur-ring,.cur-px{position:fixed;left:0;top:0;pointer-events:none;z-index:300}
+.cur{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--cur,var(--seafoam));border-radius:1px;opacity:0;transition:opacity .3s,background .3s}
+.cur-ring{width:42px;height:42px;margin:-21px 0 0 -21px;opacity:0;transition:opacity .3s}
+.cur-ring i{position:absolute;inset:0;border-radius:12px;border:2px solid var(--cur,var(--seafoam));transform:rotate(45deg) scale(1);transition:transform .45s var(--ease),border-radius .45s var(--ease),background .35s,border-color .35s;animation:curspin 9s linear infinite}
+.cur-ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 12px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);opacity:0;transform:scale(.6);transition:opacity .3s,transform .4s var(--ease)}
+.cur-ring.hov i{transform:rotate(0) scale(2.1);border-radius:50%;background:#FFD23F;border-color:#FFD23F;animation:none}
+.cur-ring.hov b{opacity:1;transform:scale(1)}
+.cur-ring.down i{transform:rotate(45deg) scale(.7)}
+.cur-ring.txt i{transform:scale(.5,1.1);border-radius:3px}
+.cur-px{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:1px;animation:curpx .7s var(--ease) forwards}
+@keyframes curspin{to{transform:rotate(405deg)}}
+@keyframes curpx{to{opacity:0;transform:var(--t) scale(.2)}}
+@media (hover:hover) and (pointer:fine){html.has-cur,html.has-cur *{cursor:none!important}html.has-cur input[type=text],html.has-cur input[type=email],html.has-cur input[type=tel],html.has-cur textarea{cursor:text!important}}
+@media (hover:none),(pointer:coarse){.cur,.cur-ring,.cur-px{display:none}}
+.bio{--cur:var(--b)}
 
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
