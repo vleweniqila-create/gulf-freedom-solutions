@@ -73,3 +73,14 @@ body.bio{background:var(--bg);color:#fff}
 .bio .foot{background:rgba(0,0,0,.25)}
 @media (max-width:600px){.b-photo{box-shadow:12px 12px 0 var(--b)}.sticker{font-size:15px;padding:10px 14px}.sticker[style*="left:-"]{left:6px!important}.sticker[style*="right:-"]{right:6px!important}}
 @media (max-width:600px){.b-photo{width:calc(100% - 20px);margin-left:4px;transform:rotate(1.5deg)}}
+.b-hero .fullname{margin-top:14px;font-size:clamp(16px,1.6vw,20px);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:32px}}
+.story{display:flex;flex-direction:column;gap:20px;font-size:clamp(17px,1.4vw,20px);color:rgba(255,255,255,.82)}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.gal figure{margin:0;position:relative;aspect-ratio:3/4;border-radius:24px;overflow:hidden;background:var(--a)}
+.gal figure:nth-child(even){transform:translateY(32px)}
+.gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.gal figure:hover img{transform:scale(1.06)}
+.gal .cells i{--cell:var(--bg)}
+@media (max-width:900px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))}.gal figure:nth-child(even){transform:translateY(20px)}}
