@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gulf Freedom Solutions | Websites and Social Media Ads in Panama City, FL</title>
 <meta name="description" content="Locally owned web design and social media ads for small businesses in Panama City, Lynn Haven, Callaway and Panama City Beach.">
-<script>document.documentElement.className='js';</script>
+<script>document.documentElement.className='js';try{if(/[?&]intro\b/.test(location.search)||(sessionStorage.getItem('gfs-intro')!=='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches))document.documentElement.classList.add('intro-on')}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,6 +14,16 @@
 <link rel="stylesheet" href="assets/home.css">
 </head>
 <body>
+<!-- ============ LAUNCH INTRO (10 seconds, plays once per visit) ============ -->
+<div class="intro" id="intro" role="img" aria-label="Intro animation: scattered pixels come together into waves, spell our values of humility, reliability, trust, perseverance and generosity, then form the Gulf Freedom Solutions sun over the waves.">
+  <canvas aria-hidden="true"></canvas>
+  <p class="ic ic-1" aria-hidden="true">If you want to go fast, <span>go alone.</span></p>
+  <p class="ic ic-eyebrow" aria-hidden="true">What we stand for</p>
+  <p class="ic ic-2" aria-hidden="true">If you want to go far, <span>go together.</span><small>Gulf Freedom Solutions</small></p>
+  <span class="ic-word sr" aria-live="polite"></span>
+  <button class="intro-skip" type="button">Skip intro</button>
+  <div class="intro-grid" aria-hidden="true"></div>
+</div>
 <div class="px" id="px" aria-hidden="true" style="background:#0F1E3D"></div>
 <a class="sr" href="#main">Skip to content</a>
 
@@ -361,12 +371,13 @@
       <div><b>Explore</b><a href="index.html#services">Services</a><a href="index.html#quote">Pricing</a><a href="team/niki.html">Meet Niki</a><a href="team/partner.html">Meet Michael</a></div>
       <div><b>Serving</b><span>Panama City</span><span>Lynn Haven</span><span>Callaway</span><span>Panama City Beach</span></div>
     </div>
-    <div class="foot-bottom"><span>© <span data-year>2026</span> Gulf Freedom Solutions LLC</span><span style="font-style:italic">"Whatever you do, work at it with all your heart." Colossians 3:23</span></div>
+    <div class="foot-bottom"><span>© <span data-year>2026</span> Gulf Freedom Solutions LLC</span><a href="index.html?intro" style="color:inherit">Replay intro</a><span style="font-style:italic">"Whatever you do, work at it with all your heart." Colossians 3:23</span></div>
   </div>
 </footer>
 
 <script src="assets/site.js"></script>
 <script src="assets/home.js"></script>
+<script src="assets/intro.js"></script>
 <script>
 (function(){var g=document.getElementById('cta-grid');if(!g)return;for(var i=0;i<24*12;i++){var c=document.createElement('i');c.style.animationDelay=(Math.random()*6).toFixed(2)+'s';g.appendChild(c);}})();
 </script>
