@@ -71,3 +71,5 @@ body.bio{background:var(--bg);color:#fff}
 .b-next .arrow{width:96px;height:96px;border-radius:50%;background:var(--b);color:var(--bg);display:grid;place-items:center;transition:transform .5s var(--ease)}
 .b-next:hover .arrow{transform:rotate(-45deg)}
 .bio .foot{background:rgba(0,0,0,.25)}
+@media (max-width:600px){.b-photo{box-shadow:12px 12px 0 var(--b)}.sticker{font-size:15px;padding:10px 14px}.sticker[style*="left:-"]{left:6px!important}.sticker[style*="right:-"]{right:6px!important}}
+@media (max-width:600px){.b-photo{width:calc(100% - 20px);margin-left:4px;transform:rotate(1.5deg)}}
