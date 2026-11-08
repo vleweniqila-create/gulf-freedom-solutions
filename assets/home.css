@@ -243,6 +243,9 @@
 .ic.on{opacity:1;transform:none}
 .ic-1{bottom:18%;font-size:clamp(20px,2.6vw,34px);color:rgba(255,255,255,.85)}
 .ic-1 span{color:#8FA0C2}
+.ic-jet{bottom:18%;font-size:clamp(20px,2.6vw,34px)}
+.ic-bay{top:16%;font-size:clamp(22px,3vw,40px)}
+.ic-bay span{color:#FFD23F}
 .ic-eyebrow{top:24%;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#FFD23F}
 .ic-2{bottom:13%;font-size:clamp(24px,3.4vw,46px);line-height:1.15}
 .ic-2 span{background:linear-gradient(90deg,#3DD6B0,#5B8CFF 45%,#A58BFF 75%,#FFD23F);-webkit-background-clip:text;background-clip:text;color:transparent}
