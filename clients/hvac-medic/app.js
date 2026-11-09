@@ -6,9 +6,9 @@
      FORM_ENDPOINT: paste a form backend URL to get leads by email.
      Formspree example: 'https://formspree.io/f/abcdwxyz'
      Leave empty and the form still works: the visitor gets a one-tap
-     "Text this to Dave" button with their whole request filled in. */
+     "Text this to Brent" button with their whole request filled in. */
   var FORM_ENDPOINT = '';
-  var PHONE = '+12076315961';
+  var PHONE = '+12188206351';
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
@@ -109,7 +109,7 @@
       { label: 'Planning ahead', note: "No rush. We'll find a time that works for you.", fill: 25, prio: 'Routine', cls: '' },
       { label: 'This week', note: "We'll get you on the schedule within a few days.", fill: 48, prio: 'Soon', cls: '' },
       { label: 'Today, please', note: "We'll do our best to get to you today.", fill: 72, prio: 'High', cls: 'p-high' },
-      { label: 'Emergency', note: 'No heat or a safety issue? After you send this, call or text so Dave sees it right away.', fill: 96, prio: 'Urgent', cls: 'p-urgent' }
+      { label: 'Emergency', note: 'No heat right now? After you send this, call or text so Brent sees it right away.', fill: 96, prio: 'Urgent', cls: 'p-urgent' }
     ];
 
     function chart(key, val) {
@@ -218,8 +218,8 @@
         property: val('property'), notes: val('notes'), case: caseNo
       };
 
-      var summary = 'Hi Dave, this is ' + data.name + '. Case ' + caseNo + '.\n' +
-        'Problem: ' + data.symptom + '\nSystem: ' + data.system + '\nUrgency: ' + data.urgency +
+      var summary = 'Hi Brent, this is ' + data.name + '. Case ' + caseNo + '.\n' +
+        'Need: ' + data.symptom + '\nSystem: ' + data.system + '\nUrgency: ' + data.urgency +
         '\nWhere: ' + data.town + (data.zip ? ' ' + data.zip : '') + ' (' + data.property + ')' +
         (data.notes ? '\nNotes: ' + data.notes : '') + '\nBest way to reach me: ' + data.contact_pref + ' ' + data.phone;
       $('#sms-link').href = 'sms:' + PHONE + '?&body=' + encodeURIComponent(summary);
@@ -232,9 +232,9 @@
         $('[data-out="system"]', done).textContent = data.system;
         $('[data-out="town"]', done).textContent = data.town;
         var next;
-        if (!sent) next = 'Last step: tap "Text this to Dave" below. Your whole request is already typed out for you.';
-        else if (u.prio === 'Urgent') next = 'This is marked urgent. Call or text Dave now so he sees it right away.';
-        else next = 'Dave will ' + (data.contact_pref === 'Text' ? 'text' : 'call') + ' you at ' + data.phone + ' during business hours (Mon–Fri, 8–5).';
+        if (!sent) next = 'Last step: tap "Text this to Brent" below. Your whole request is already typed out for you.';
+        else if (u.prio === 'Urgent') next = 'This is marked urgent. Call or text Brent now so he sees it right away.';
+        else next = 'Brent will ' + (data.contact_pref === 'Text' ? 'text' : 'call') + ' you at ' + data.phone + ' to set up your free quote.';
         $('[data-out="next"]', done).textContent = next;
         if (!sent) { var s = $('#sms-link'); s.className = 'btn btn-ember'; s.previousElementSibling.className = 'btn btn-ghost-dark'; }
         steps.forEach(function (s) { s.classList.remove('is-active'); });
@@ -255,12 +255,18 @@
     });
   }
 
+  // ---------- job photos: show a styled placeholder until real photos are added ----------
+  $$('.ph img').forEach(function (img) {
+    function fail() { img.closest('.ph').classList.add('is-empty'); img.style.display = 'none'; }
+    if (img.complete && !img.naturalWidth) fail(); else img.addEventListener('error', fail);
+  });
+
   // ================= SAVINGS ESTIMATOR =================
   var bill = $('#bill');
   if (bill) {
-    // Share of yearly heating cost a well-sized cold-climate heat pump typically saves.
-    var RATES = { oil: [0.20, 0.35], kerosene: [0.25, 0.40], propane: [0.30, 0.45], electric: [0.50, 0.65] };
-    var MONTHS = 7; // typical Maine heating season
+    // Rough share of yearly heating cost a high-efficiency replacement can save.
+    var RATES = { electric: [0.35, 0.50], oldlp: [0.12, 0.20], oil: [0.20, 0.35], boiler: [0.10, 0.20] };
+    var MONTHS = 7; // typical Minnesota heating season
     var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
     var shown = {};
     function tween(id, to) {
@@ -276,7 +282,7 @@
       })(performance.now());
     }
     function calc() {
-      var fuel = ($('input[name="fuel"]:checked') || {}).value || 'oil';
+      var fuel = ($('input[name="fuel"]:checked') || {}).value || 'electric';
       var b = +bill.value, year = b * MONTHS, r = RATES[fuel], mid = (r[0] + r[1]) / 2;
       $('#bill-out').textContent = fmt(b);
       tween('now-out', year); tween('hp-out', year * (1 - mid));
