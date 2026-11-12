@@ -3,294 +3,144 @@
   'use strict';
 
   /* ================= CONFIG =================
-     FORM_ENDPOINT: paste a form backend URL to get leads by email.
-     Formspree example: 'https://formspree.io/f/abcdwxyz'
-     Leave empty and the form still works: the visitor gets a one-tap
-     "Text this to Brent" button with their whole request filled in. */
+     FORM_ENDPOINT: paste a form backend URL to get requests by email,
+     e.g. 'https://formspree.io/f/abcdwxyz'. Leave empty and the form opens a
+     pre-filled text message to HVAC Medic instead, so no request is lost. */
   var FORM_ENDPOINT = '';
   var PHONE = '+12188206351';
 
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var finePointer = window.matchMedia('(pointer: fine)').matches;
+  /* REVIEWS: only add real reviews, copied word for word, from customers who
+     agreed to be featured. Never write, edit or pay for reviews (FTC rule,
+     16 CFR Part 465). Example:
+     { text: 'Fixed our furnace the same day.', name: 'Jane D.', town: 'Baxter', source: 'Facebook', stars: 5 } */
+  var REVIEWS = [];
+
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  // ---------- load + nav ----------
-  requestAnimationFrame(function () { document.body.classList.add('is-loaded'); });
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
-  var nav = $('#nav'), dock = $('.dock'), hero = $('.hero');
-  function onScroll() {
-    var y = window.scrollY;
-    nav.classList.toggle('is-scrolled', y > 10);
-    if (dock && hero) dock.classList.toggle('is-on', y > hero.offsetHeight * 0.6);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
   // ---------- reveal on scroll ----------
-  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-in');
-      $$('[data-count]', e.target).forEach(countUp);
-      if (e.target.hasAttribute('data-count')) countUp(e.target);
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' }) : null;
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    $$('.rv').forEach(function (el) { io.observe(el); });
+  } else { $$('.rv').forEach(function (el) { el.classList.add('on'); }); }
 
-  $$('.reveal, .reveal-stagger, .method-track, .vitals').forEach(function (el) {
-    if (io) io.observe(el); else el.classList.add('is-in');
+  // ---------- crop the motion graphic on phones so it reads bigger ----------
+  var mq = window.matchMedia('(max-width: 620px)');
+  function fitStage() { var sv = $('svg.mx'); if (sv) sv.setAttribute('viewBox', mq.matches ? '150 0 900 600' : '0 0 1200 600'); }
+  fitStage(); if (mq.addEventListener) mq.addEventListener('change', fitStage);
+
+  // ---------- restart the 15s motion graphic when it scrolls into view ----------
+  var stage = $('.stage');
+  if (stage && 'IntersectionObserver' in window) {
+    var seen = false;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !seen) {
+          seen = true;
+          var svg = $('svg.mx', stage), bar = $('.prog i', stage);
+          [svg, bar].forEach(function (n) { var c = n.cloneNode(true); n.parentNode.replaceChild(c, n); });
+          fitStage();
+        }
+      });
+    }, { threshold: 0.4 }).observe(stage);
+  }
+
+  // ---------- pause / play all motion (WCAG 2.2.2) ----------
+  var pb = $('#pause');
+  if (pb) pb.addEventListener('click', function () {
+    var on = document.documentElement.classList.toggle('paused');
+    pb.setAttribute('aria-pressed', String(on));
+    pb.textContent = on ? 'Play animation' : 'Pause animation';
   });
 
-  // ---------- counters ----------
-  function countUp(el) {
-    if (el.dataset.done) return; el.dataset.done = '1';
-    var to = parseFloat(el.dataset.count), from = parseFloat(el.dataset.from || 0);
-    if (reduce) { el.textContent = to; return; }
-    var t0 = null, dur = 1600;
-    function step(t) {
-      if (!t0) t0 = t;
-      var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(from + (to - from) * e);
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+  // ---------- reviews ----------
+  var grid = $('#reviews-grid'), empty = $('#reviews-empty');
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  if (grid) {
+    if (REVIEWS.length) {
+      grid.innerHTML = REVIEWS.map(function (r) {
+        var stars = r.stars ? '<div class="stars" aria-label="' + r.stars + ' out of 5 stars">' + '★★★★★'.slice(0, r.stars) + '</div>' : '';
+        return '<figure class="rev">' + stars + '<blockquote>“' + esc(r.text) + '”</blockquote><figcaption>' + esc(r.name) +
+          '<span>' + esc([r.town, r.source ? r.source + ' review' : ''].filter(Boolean).join(' · ')) + '</span></figcaption></figure>';
+      }).join('');
+      grid.style.marginBottom = '24px';
+    } else { grid.hidden = true; }
   }
 
-  // ---------- snow in hero scene ----------
-  var snow = $('#snow');
-  if (snow && !reduce) {
-    var ns = 'http://www.w3.org/2000/svg';
-    for (var i = 0; i < 46; i++) {
-      var c = document.createElementNS(ns, 'circle');
-      var r = Math.random() * 2.2 + 0.8;
-      c.setAttribute('cx', (Math.random() * 640 - 20).toFixed(1));
-      c.setAttribute('cy', '0');
-      c.setAttribute('r', r.toFixed(1));
-      c.setAttribute('opacity', (0.45 + Math.random() * 0.5).toFixed(2));
-      c.style.setProperty('--dx', (Math.random() * 60 - 20).toFixed(0) + 'px');
-      c.style.animationDuration = (6 + Math.random() * 8).toFixed(1) + 's';
-      c.style.animationDelay = (-Math.random() * 14).toFixed(1) + 's';
-      snow.appendChild(c);
-    }
+  // ---------- symptom checker ----------
+  var dx = {
+    noheat: { t: 'No heat', s: ['urgent', 'Call today'], steps: ['Check the thermostat is set to Heat and a few degrees above room temperature.', 'Make sure the furnace switch (looks like a light switch) is on.', 'Look at the filter. A clogged filter can shut a furnace down.', 'Check the breaker panel for a tripped breaker.'], n: 'Still nothing? In a Minnesota winter, pipes can freeze in hours. Give us a call.' },
+    cold: { t: 'Cold rooms', s: ['soon', 'Book a visit'], steps: ['Open every supply and return vent in the house.', 'Move furniture or rugs off of vents.', 'Replace the furnace filter.'], n: 'Ongoing cold spots usually mean duct problems or an undersized system. We can check airflow room by room.' },
+    noise: { t: 'Strange noises', s: ['soon', 'Book a visit'], steps: ['Banging or booming at startup can be delayed ignition. Turn the system off and have it checked.', 'Squealing often means a worn blower belt or motor bearing.', 'Rattling can be a loose panel or duct.'], n: 'Loud or new noises are worth a professional look before they become a breakdown.' },
+    ac: { t: 'Warm AC air', s: ['soon', 'Book a visit'], steps: ['Set the thermostat to Cool and the fan to Auto.', 'Check that the outdoor unit is running and clear of grass and debris.', 'Replace the filter.'], n: 'Warm air with the outdoor unit running can mean a dirty coil, low refrigerant or a failed part. We can track it down.' },
+    bill: { t: 'High energy bill', s: ['diy', 'Start here'], steps: ['Change the filter. Do it every 1–3 months in heating season.', 'Check that the thermostat schedule matches when you\'re home.', 'Feel for drafts around doors and windows.'], n: 'An older furnace can use noticeably more fuel than a new high-efficiency model. Ask us for a free comparison.' }
+  };
+  var T = $('#dx-title'), S = $('#dx-sev'), L = $('#dx-steps'), N = $('#dx-note');
+  function show(k) {
+    var d = dx[k]; T.textContent = d.t; S.className = 'sev ' + d.s[0]; S.textContent = d.s[1];
+    L.innerHTML = d.steps.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join(''); N.textContent = d.n;
+    $$('.sym').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.k === k)); });
   }
+  $$('.sym').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.k); }); });
+  if (T) show('noheat');
 
-  // ---------- tilt + magnet (mouse only) ----------
-  if (finePointer && !reduce) {
-    $$('[data-tilt]').forEach(function (el) {
-      el.addEventListener('pointermove', function (e) {
-        var b = el.getBoundingClientRect();
-        var x = (e.clientX - b.left) / b.width - 0.5, y = (e.clientY - b.top) / b.height - 0.5;
-        el.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
-        el.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
-      });
-      el.addEventListener('pointerleave', function () { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
-    });
-    $$('[data-magnet]').forEach(function (el) {
-      el.addEventListener('pointermove', function (e) {
-        var b = el.getBoundingClientRect();
-        el.style.setProperty('--bx', ((e.clientX - b.left - b.width / 2) * 0.18).toFixed(1) + 'px');
-        el.style.setProperty('--by', ((e.clientY - b.top - b.height / 2) * 0.28).toFixed(1) + 'px');
-      });
-      el.addEventListener('pointerleave', function () { el.style.setProperty('--bx', '0px'); el.style.setProperty('--by', '0px'); });
-    });
+  // ---------- legal dialogs ----------
+  function openDoc(id) {
+    var d = document.getElementById(id);
+    if (!d || !d.showModal) return false;
+    if (!d.open) d.showModal();
+    return true;
   }
+  $$('[data-open]').forEach(function (b) {
+    b.addEventListener('click', function (e) { if (openDoc(b.dataset.open)) e.preventDefault(); });
+  });
+  $$('dialog.legal-doc').forEach(function (d) {
+    $('[data-close]', d).addEventListener('click', function () { d.close(); });
+    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+  });
+  var h = location.hash.slice(1);
+  if (['privacy', 'terms', 'access'].indexOf(h) > -1) openDoc(h);
 
-  // ================= TRIAGE FORM =================
-  var form = $('#triage-form');
+  // ---------- request form ----------
+  var form = $('#req'), sent = $('#sent');
   if (form) {
-    var steps = $$('.tri-step', form), cur = 1, total = steps.length;
-    var meter = $('.tri-meter span', form), countEl = $('#tri-step-n'), back = $('.tri-back', form);
-    var prog = $$('.tri-progress li');
-    var done = $('.tri-done', form), nav2 = $('.tri-nav', form), counter = $('.tri-count', form);
-
-    var URG = [
-      { label: 'Planning ahead', note: "No rush. We'll find a time that works for you.", fill: 25, prio: 'Routine', cls: '' },
-      { label: 'This week', note: "We'll get you on the schedule within a few days.", fill: 48, prio: 'Soon', cls: '' },
-      { label: 'Today, please', note: "We'll do our best to get to you today.", fill: 72, prio: 'High', cls: 'p-high' },
-      { label: 'Emergency', note: 'No heat right now? After you send this, call or text so Brent sees it right away.', fill: 96, prio: 'Urgent', cls: 'p-urgent' }
-    ];
-
-    function chart(key, val) {
-      var dd = $('[data-chart="' + key + '"]');
-      if (!dd || dd.textContent === val) return;
-      dd.textContent = val; dd.classList.remove('flash'); void dd.offsetWidth; dd.classList.add('flash');
-    }
-
-    function show(n, dir) {
-      cur = n;
-      steps.forEach(function (s) {
-        var on = +s.dataset.step === n;
-        s.classList.toggle('is-active', on);
-        s.classList.toggle('is-back', on && dir < 0);
-      });
-      meter.style.width = (n / total * 100) + '%';
-      countEl.textContent = n;
-      back.hidden = n === 1;
-      prog.forEach(function (li, i) {
-        li.classList.toggle('is-on', i + 1 === n);
-        li.classList.toggle('is-done', i + 1 < n);
-      });
-      var first = $('.tri-step.is-active input:not([type=hidden]):not([type=radio]), .tri-step.is-active input[type=range]', form);
-      if (first && finePointer && n > 2) setTimeout(function () { first.focus({ preventScroll: true }); }, 350);
-    }
-
-    function validate(n) {
-      var ok = true;
-      $$('.tri-step[data-step="' + n + '"] [required]', form).forEach(function (inp) {
-        var f = inp.closest('.field');
-        var bad = !inp.value.trim() || (inp.type === 'tel' && inp.value.replace(/\D/g, '').length < 10);
-        if (f) { f.classList.remove('is-error'); if (bad) { void f.offsetWidth; f.classList.add('is-error'); } }
-        if (bad && ok) { inp.focus(); ok = false; }
-      });
-      var zip = form.elements.zip;
-      if (n === 4 && zip.value && !/^\d{5}$/.test(zip.value)) {
-        zip.closest('.field').classList.add('is-error'); zip.focus(); ok = false;
-      }
-      return ok;
-    }
-
-    // auto-advance on tile pick
-    form.addEventListener('change', function (e) {
-      var t = e.target;
-      if (t.name === 'symptom') { chart('symptom', t.value); setTimeout(function () { if (cur === 1) show(2, 1); }, 320); }
-      if (t.name === 'system') { chart('system', t.value); setTimeout(function () { if (cur === 2) show(3, 1); }, 320); }
-    });
-    form.addEventListener('input', function (e) {
-      if (e.target.name === 'town') chart('town', e.target.value.trim() || '—');
-      var f = e.target.closest('.field'); if (f) f.classList.remove('is-error');
-    });
-
-    // urgency slider
-    var urg = $('#urgency'), urgBox = $('.urgency', form);
-    function setUrg() {
-      var u = URG[+urg.value];
-      $('#urgency-label').textContent = u.label;
-      $('#urgency-note').textContent = u.note;
-      urgBox.dataset.level = urg.value;
-      $('.thermo-fill', form).style.setProperty('--fill', u.fill + '%');
-      form.elements.urgency.value = u.label;
-      chart('urgency', u.label);
-    }
-    urg.addEventListener('input', setUrg);
-    setUrg();
-    $('[data-chart="urgency"]').textContent = '—';
-
-    $$('.tri-next', form).forEach(function (b) {
-      b.addEventListener('click', function () { if (validate(cur)) show(cur + 1, 1); });
-    });
-    back.addEventListener('click', function () { if (cur > 1) show(cur - 1, -1); });
-    form.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && e.target.tagName === 'INPUT' && cur < total) {
-        e.preventDefault(); if (validate(cur)) show(cur + 1, 1);
-      }
-    });
-
-    // presets from hero chips / service links
-    $$('[data-preset]').forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        var key = el.dataset.preset;
-        var radio = $('input[name="symptom"][data-key="' + key + '"]', form);
-        if (!radio) return;
-        e.preventDefault();
-        if (!done.hidden) return document.getElementById('triage').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-        radio.checked = true; chart('symptom', radio.value);
-        show(2, 1);
-        document.getElementById('triage').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-      });
-    });
-
-    function val(name) { var el = form.elements[name]; if (!el) return ''; return (el.value || '').trim(); }
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!validate(5)) return;
-      if (val('_gotcha')) return; // bot
+      if (form.elements._gotcha.value) return;
+      var ok = true;
+      ['name', 'phone'].forEach(function (n) {
+        var el = form.elements[n], bad = !el.value.trim() || (n === 'phone' && el.value.replace(/\D/g, '').length < 10);
+        el.closest('.field').classList.toggle('err', bad);
+        if (bad && ok) { el.focus(); ok = false; }
+      });
+      var c = $('#r-consent'), row = $('#consent-row');
+      row.classList.toggle('err', !c.checked);
+      if (!c.checked) { if (ok) c.focus(); ok = false; }
+      if (!ok) return;
 
-      var u = URG[+urg.value];
-      var d = new Date();
-      var caseNo = 'HM-' + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '-' + Math.floor(1000 + Math.random() * 9000);
       var data = {
-        name: val('name'), phone: val('phone'), contact_pref: val('contact_pref'),
-        symptom: val('symptom') || 'Not given', system: val('system') || 'Not given',
-        urgency: u.label, priority: u.prio, town: val('town'), zip: val('zip'),
-        property: val('property'), notes: val('notes'), case: caseNo
+        name: form.elements.name.value.trim(), phone: form.elements.phone.value.trim(),
+        need: form.elements.need.value, details: form.elements.details.value.trim(), consent: 'yes'
       };
+      var body = 'Hi, this is ' + data.name + ' (' + data.phone + '). I need: ' + data.need + '.' + (data.details ? ' ' + data.details : '');
+      var sms = 'sms:' + PHONE + '?&body=' + encodeURIComponent(body);
 
-      var summary = 'Hi Brent, this is ' + data.name + '. Case ' + caseNo + '.\n' +
-        'Need: ' + data.symptom + '\nSystem: ' + data.system + '\nUrgency: ' + data.urgency +
-        '\nWhere: ' + data.town + (data.zip ? ' ' + data.zip : '') + ' (' + data.property + ')' +
-        (data.notes ? '\nNotes: ' + data.notes : '') + '\nBest way to reach me: ' + data.contact_pref + ' ' + data.phone;
-      $('#sms-link').href = 'sms:' + PHONE + '?&body=' + encodeURIComponent(summary);
-
-      function finish(sent) {
-        $('[data-out="name"]', done).textContent = data.name.split(' ')[0] || 'neighbor';
-        $('[data-out="case"]', done).textContent = caseNo;
-        var p = $('[data-out="priority"]', done); p.textContent = data.priority; p.className = 'prio ' + u.cls;
-        $('[data-out="symptom"]', done).textContent = data.symptom;
-        $('[data-out="system"]', done).textContent = data.system;
-        $('[data-out="town"]', done).textContent = data.town;
-        var next;
-        if (!sent) next = 'Last step: tap "Text this to Brent" below. Your whole request is already typed out for you.';
-        else if (u.prio === 'Urgent') next = 'This is marked urgent. Call or text Brent now so he sees it right away.';
-        else next = 'Brent will ' + (data.contact_pref === 'Text' ? 'text' : 'call') + ' you at ' + data.phone + ' to set up your free quote.';
-        $('[data-out="next"]', done).textContent = next;
-        if (!sent) { var s = $('#sms-link'); s.className = 'btn btn-ember'; s.previousElementSibling.className = 'btn btn-ghost-dark'; }
-        steps.forEach(function (s) { s.classList.remove('is-active'); });
-        nav2.hidden = true; counter.hidden = true; meter.style.width = '100%';
-        prog.forEach(function (li) { li.classList.remove('is-on'); li.classList.add('is-done'); });
-        done.hidden = false; done.focus();
-        if (window.gtag) window.gtag('event', 'generate_lead', { priority: data.priority });
+      function done(viaEmail) {
+        sent.hidden = false;
+        sent.innerHTML = viaEmail
+          ? 'Request received. HVAC Medic will get back to you soon. For anything urgent, call (218) 820-6351.'
+          : 'Almost done: <a href="' + sms + '">tap here to text your request</a> to HVAC Medic, or call (218) 820-6351.';
+        if (!viaEmail) location.href = sms;
       }
-
-      if (!FORM_ENDPOINT) { finish(false); return; }
-      var btn = $('.tri-submit', form); btn.classList.add('is-loading'); btn.firstChild.textContent = 'Sending… ';
-      var fd = new FormData();
-      Object.keys(data).forEach(function (k) { fd.append(k, data[k]); });
-      fd.append('_subject', 'New ' + data.priority + ' lead: ' + data.symptom + ' in ' + data.town);
+      if (!FORM_ENDPOINT) { done(false); return; }
+      var fd = new FormData(); Object.keys(data).forEach(function (k) { fd.append(k, data[k]); });
+      fd.append('_subject', 'Website request: ' + data.need + ' from ' + data.name);
       fetch(FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
-        .then(function (r) { finish(r.ok); })
-        .catch(function () { finish(false); });
+        .then(function (r) { done(r.ok); }).catch(function () { done(false); });
     });
-  }
-
-  // ---------- job photos: show a styled placeholder until real photos are added ----------
-  $$('.ph img').forEach(function (img) {
-    function fail() { img.closest('.ph').classList.add('is-empty'); img.style.display = 'none'; }
-    if (img.complete && !img.naturalWidth) fail(); else img.addEventListener('error', fail);
-  });
-
-  // ================= SAVINGS ESTIMATOR =================
-  var bill = $('#bill');
-  if (bill) {
-    // Rough share of yearly heating cost a high-efficiency replacement can save.
-    var RATES = { electric: [0.35, 0.50], oldlp: [0.12, 0.20], oil: [0.20, 0.35], boiler: [0.10, 0.20] };
-    var MONTHS = 7; // typical Minnesota heating season
-    var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
-    var shown = {};
-    function tween(id, to) {
-      var el = document.getElementById(id), from = shown[id] || to;
-      shown[id] = to;
-      if (reduce || from === to) { el.textContent = fmt(to); return; }
-      var t0 = null;
-      (function step(t) {
-        if (!t0) t0 = t;
-        var p = Math.min((t - t0) / 500, 1), e = 1 - Math.pow(1 - p, 3);
-        el.textContent = fmt(from + (to - from) * e);
-        if (p < 1) requestAnimationFrame(step);
-      })(performance.now());
-    }
-    function calc() {
-      var fuel = ($('input[name="fuel"]:checked') || {}).value || 'electric';
-      var b = +bill.value, year = b * MONTHS, r = RATES[fuel], mid = (r[0] + r[1]) / 2;
-      $('#bill-out').textContent = fmt(b);
-      tween('now-out', year); tween('hp-out', year * (1 - mid));
-      tween('save-lo', year * r[0]); tween('save-hi', year * r[1]);
-      $('.bar-hp').style.width = ((1 - mid) * 100).toFixed(0) + '%';
-    }
-    bill.addEventListener('input', calc);
-    $$('input[name="fuel"]').forEach(function (r) { r.addEventListener('change', calc); });
-    calc();
   }
 })();
