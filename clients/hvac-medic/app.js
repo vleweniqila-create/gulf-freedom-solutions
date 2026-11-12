@@ -28,34 +28,104 @@
     $$('.rv').forEach(function (el) { io.observe(el); });
   } else { $$('.rv').forEach(function (el) { el.classList.add('on'); }); }
 
-  // ---------- crop the motion graphic on phones so it reads bigger ----------
-  var mq = window.matchMedia('(max-width: 620px)');
-  function fitStage() { var sv = $('svg.mx'); if (sv) sv.setAttribute('viewBox', mq.matches ? '150 0 900 600' : '0 0 1200 600'); }
-  fitStage(); if (mq.addEventListener) mq.addEventListener('change', fitStage);
+  // ================= JOB SLIDESHOW =================
+  // 6 photos x 2.5s = one 15-second loop. Glass sweep transition, swipe/drag,
+  // arrow keys, thumbnails, pause button. Autoplay pauses on hover/focus,
+  // off-screen, in a background tab, and is off for reduced-motion users.
+  var deck = $('#show');
+  if (deck) {
+    var DUR = 2500;
+    var slides = $$('.sl', deck), thumbs = $$('.th'), thumbsEl = $('.thumbs');
+    var playBtn = $('#sl-play'), live = $('#sl-live'), num = $('#sl-n');
+    var cur = 0, timer = null, running = false, remaining = DUR, startedAt = 0;
+    var userPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hoverPaused = false, offscreen = false;
+    deck.style.setProperty('--dur', DUR + 'ms');
+    if (thumbsEl) thumbsEl.style.setProperty('--dur', DUR + 'ms');
 
-  // ---------- restart the 15s motion graphic when it scrolls into view ----------
-  var stage = $('.stage');
-  if (stage && 'IntersectionObserver' in window) {
-    var seen = false;
-    new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting && !seen) {
-          seen = true;
-          var svg = $('svg.mx', stage), bar = $('.prog i', stage);
-          [svg, bar].forEach(function (n) { var c = n.cloneNode(true); n.parentNode.replaceChild(c, n); });
-          fitStage();
-        }
+    function isPaused() { return userPaused || hoverPaused || offscreen || document.hidden; }
+    function schedule() {
+      if (running) return;
+      running = true; startedAt = Date.now();
+      timer = setTimeout(function () { running = false; go(cur + 1, 1, false); }, remaining);
+    }
+    function halt() {
+      if (!running) return;
+      clearTimeout(timer); running = false;
+      remaining = Math.max(200, remaining - (Date.now() - startedAt));
+    }
+    function sync() {
+      var p = isPaused();
+      deck.classList.toggle('paused', p);
+      if (thumbsEl) thumbsEl.classList.toggle('paused', p);
+      playBtn.setAttribute('aria-pressed', String(userPaused));
+      playBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+      if (p) halt(); else schedule();
+    }
+    function go(i, dir, byUser) {
+      var n = slides.length, next = (i + n) % n;
+      if (next === cur) return;
+      var old = slides[cur];
+      deck.classList.toggle('go', false); deck.classList.toggle('fwd', false); deck.classList.toggle('back', false);
+      void deck.offsetWidth;
+      deck.classList.add(dir < 0 ? 'back' : 'fwd', 'go');
+      old.classList.toggle('is-on', false); old.classList.add('is-out'); old.setAttribute('aria-hidden', 'true');
+      setTimeout(function () { old.classList.toggle('is-out', false); }, 1000);
+      var s = slides[next];
+      s.classList.add('is-on'); s.removeAttribute('aria-hidden');
+      var im = $('img', s); if (im) im.loading = 'eager';
+      thumbs.forEach(function (t, k) {
+        t.classList.toggle('is-on', false); t.removeAttribute('aria-current');
+        t.classList.toggle('done', k < next);
       });
-    }, { threshold: 0.4 }).observe(stage);
-  }
+      void thumbs[next].offsetWidth;
+      thumbs[next].classList.add('is-on'); thumbs[next].setAttribute('aria-current', 'true');
+      num.textContent = ('0' + (next + 1)).slice(-2);
+      if (byUser) live.textContent = s.getAttribute('aria-label');
+      cur = next;
+      clearTimeout(timer); running = false; remaining = DUR;
+      sync();
+    }
 
-  // ---------- pause / play all motion (WCAG 2.2.2) ----------
-  var pb = $('#pause');
-  if (pb) pb.addEventListener('click', function () {
-    var on = document.documentElement.classList.toggle('paused');
-    pb.setAttribute('aria-pressed', String(on));
-    pb.textContent = on ? 'Play animation' : 'Pause animation';
-  });
+    $('#sl-next').addEventListener('click', function () { go(cur + 1, 1, true); });
+    $('#sl-prev').addEventListener('click', function () { go(cur - 1, -1, true); });
+    playBtn.addEventListener('click', function () { userPaused = !userPaused; sync(); });
+    thumbs.forEach(function (t) {
+      t.addEventListener('click', function () { var k = +t.dataset.go; go(k, k < cur ? -1 : 1, true); });
+    });
+    deck.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1, 1, true); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1, -1, true); }
+    });
+
+    // swipe / drag
+    var x0 = null, y0 = 0, pid = null;
+    deck.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      x0 = e.clientX; y0 = e.clientY; pid = e.pointerId; deck.classList.add('dragging');
+    });
+    function endDrag(e) {
+      if (x0 === null || e.pointerId !== pid) return;
+      var dx = e.clientX - x0, dy = e.clientY - y0;
+      x0 = null; deck.classList.toggle('dragging', false);
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1, true);
+    }
+    deck.addEventListener('pointerup', endDrag);
+    deck.addEventListener('pointercancel', function () { x0 = null; deck.classList.toggle('dragging', false); });
+
+    // pause while someone is looking closely
+    if (window.matchMedia('(hover: hover)').matches) {
+      deck.addEventListener('mouseenter', function () { hoverPaused = true; sync(); });
+      deck.addEventListener('mouseleave', function () { hoverPaused = false; sync(); });
+    }
+    deck.addEventListener('focusin', function () { hoverPaused = true; sync(); });
+    deck.addEventListener('focusout', function (e) { if (!deck.contains(e.relatedTarget)) { hoverPaused = false; sync(); } });
+    document.addEventListener('visibilitychange', sync);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { offscreen = !es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(deck);
+    }
+    sync();
+  }
 
   // ---------- reviews ----------
   var grid = $('#reviews-grid'), empty = $('#reviews-empty');

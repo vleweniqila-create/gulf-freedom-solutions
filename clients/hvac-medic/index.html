@@ -82,128 +82,108 @@
   </div>
 </div>
 
-<!-- ============ MOTION GRAPHIC: 15-second loop ============ -->
-<section class="vitals" id="vitals">
+<!-- ============ JOB SLIDESHOW: 15-second loop, glass transitions, swipe/drag/keys ============ -->
+<section class="work" id="work">
   <div class="in">
     <div class="sh rv">
-      <div class="eyebrow">Inside the system</div>
-      <h2>Every system has a heartbeat</h2>
-      <p>We take it apart, find what's wrong and put it back together running right. Here's what that looks like, and what we stand for while we do it.</p>
+      <div class="eyebrow">Recent work</div>
+      <h2>Real jobs, real installs</h2>
+      <p>Photos from HVAC Medic's own projects around the Brainerd Lakes Area. Swipe, drag or tap through them.</p>
     </div>
-    <div class="stage rv">
-      <svg class="mx" viewBox="0 0 1200 600" role="img" aria-labelledby="mx-t mx-d">
-        <title id="mx-t">HVAC Medic system check animation</title>
-        <desc id="mx-d">A heartbeat monitor runs behind an outdoor HVAC unit. The unit flatlines, then comes apart into its components: top panel, fan blade, fan motor, condenser coil, compressor and capacitor. Each component highlights one of HVAC Medic's values: family owned, fair pricing, reliable service and customer focused. The unit reassembles, the heartbeat steadies, and the words Comfort, Quality, Elite service appear.</desc>
-        <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#14233a" stroke-width="1"/></pattern>
-          <pattern id="louver" width="8" height="10" patternUnits="userSpaceOnUse"><rect width="8" height="10" fill="#cdd5e0"/><rect x="3" width="2.4" height="10" fill="#97a5b8"/></pattern>
-        </defs>
-        <rect width="1200" height="600" fill="#091220"/>
-        <rect width="1200" height="600" fill="url(#grid)"/>
 
-        <!-- heartbeat monitor (background) -->
-        <path class="ecg-ghost" d="M0 300 l140 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l94 0"/>
-        <g class="w-flat"><path class="flat" d="M0 300H1200"/></g>
-        <g class="w-live"><path class="ecg-live" d="M0 300 l140 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l234 0 l12 -30 l14 90 l16 -150 l14 110 l10 -20 l94 0"/></g>
-
-        <!-- status + readout -->
-        <g class="mx-txt hud-l" font-size="19" font-weight="700" letter-spacing="3">
-          <g class="s1"><circle class="blink" cx="44" cy="42" r="6" fill="#d7262e"/><text x="60" y="49" fill="#ff6b70">SYSTEM DOWN</text></g>
-          <g class="s2" opacity="0"><circle class="blink" cx="44" cy="42" r="6" fill="#3a9ad9"/><text x="60" y="49" fill="#fff">DIAGNOSING</text></g>
-          <g class="s3" opacity="0"><circle class="blink" cx="44" cy="42" r="6" fill="#d7262e"/><text x="60" y="49" fill="#fff">TREATING</text></g>
-          <g class="s4" opacity="0"><circle cx="44" cy="42" r="6" fill="#3a9ad9"/><text x="60" y="49" fill="#7cc4f2">COMFORT RESTORED</text></g>
-        </g>
-        <g class="mx-txt hud-r" font-weight="800" text-anchor="end">
-          <text class="hud-name" x="1164" y="49" fill="#8ea0b8" font-size="15" font-weight="700" letter-spacing="3">HVAC MEDIC · VITALS</text>
-          <text class="w-flat" x="1120" y="104" font-size="48" fill="#5d7394">--</text>
-          <text class="w-live" x="1120" y="104" font-size="48" fill="#ff6b70">72</text>
-          <text x="1164" y="104" font-size="16" fill="#8ea0b8" letter-spacing="2">BPM</text>
-        </g>
-
-        <!-- ===== outdoor unit, drawn as separate components ===== -->
-        <g class="part c-base">
-          <rect x="440" y="430" width="320" height="16" rx="4" fill="#7f8ea6"/>
-          <rect x="462" y="446" width="34" height="8" rx="2" fill="#5d6d86"/><rect x="704" y="446" width="34" height="8" rx="2" fill="#5d6d86"/>
-        </g>
-        <g class="part c-comp">
-          <path d="M604 360 h18 v-34" fill="none" stroke="#b87333" stroke-width="4" stroke-linecap="round"/>
-          <rect x="548" y="348" width="56" height="80" rx="18" fill="#23344f" stroke="#3b5578" stroke-width="2"/>
-          <rect x="548" y="378" width="56" height="7" fill="#d7262e"/>
-          <rect x="566" y="340" width="20" height="10" rx="3" fill="#3b5578"/>
-        </g>
-        <g class="part c-ctrl">
-          <rect x="640" y="352" width="22" height="46" rx="8" fill="#3a9ad9"/>
-          <rect x="646" y="346" width="4" height="8" fill="#cfd8e4"/><rect x="653" y="346" width="4" height="8" fill="#cfd8e4"/>
-          <rect x="670" y="360" width="36" height="40" rx="4" fill="#cdd5e0" stroke="#97a5b8" stroke-width="2"/>
-          <circle cx="688" cy="372" r="4" fill="#d7262e"/>
-          <path d="M678 386h20M678 392h20" stroke="#5d6d86" stroke-width="2"/>
-        </g>
-        <g class="part c-motor">
-          <rect x="596" y="284" width="8" height="14" fill="#9fb0c6"/>
-          <rect x="582" y="296" width="36" height="36" rx="7" fill="#5a6b85" stroke="#7f8ea6" stroke-width="2"/>
-          <path d="M588 306h24M588 314h24M588 322h24" stroke="#46566f" stroke-width="2"/>
-        </g>
-        <g class="part c-fan">
-          <g class="spin">
-            <circle cx="600" cy="262" r="46" fill="none" stroke="#3b5578" stroke-width="2"/>
-            <path d="M600 262 C 588 236, 602 218, 618 224 C 620 242, 610 254, 600 262Z" fill="#9fb0c6"/>
-            <path d="M600 262 C 588 236, 602 218, 618 224 C 620 242, 610 254, 600 262Z" fill="#9fb0c6" transform="rotate(120 600 262)"/>
-            <path d="M600 262 C 588 236, 602 218, 618 224 C 620 242, 610 254, 600 262Z" fill="#9fb0c6" transform="rotate(240 600 262)"/>
-            <circle cx="600" cy="262" r="8" fill="#e8edf4"/>
-          </g>
-        </g>
-        <g class="part c-coilL">
-          <rect x="450" y="214" width="150" height="216" fill="url(#louver)"/>
-          <rect x="450" y="214" width="150" height="216" fill="none" stroke="#97a5b8" stroke-width="2"/>
-        </g>
-        <g class="part c-coilR">
-          <rect x="600" y="214" width="150" height="216" fill="url(#louver)"/>
-          <rect x="600" y="214" width="150" height="216" fill="none" stroke="#97a5b8" stroke-width="2"/>
-          <rect x="642" y="392" width="92" height="22" rx="4" fill="#0c1626"/>
-          <path d="M652 399h3v-3h3v3h3v3h-3v3h-3v-3h-3z" fill="#d7262e"/>
-          <text x="666" y="408" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="800" font-size="13" letter-spacing="1" fill="#fff">HVAC MEDIC</text>
-        </g>
-        <g class="part c-top">
-          <rect x="500" y="186" width="200" height="14" rx="7" fill="#97a5b8"/>
-          <path d="M520 193h160" stroke="#5d6d86" stroke-width="2"/>
-          <rect x="440" y="198" width="320" height="18" rx="5" fill="#eef2f7"/>
-        </g>
-
-        <!-- value highlight rings (exploded positions) -->
-        <circle class="ring r1" cx="456" cy="428" r="66"/>
-        <circle class="ring r2" cx="783" cy="406" r="64"/>
-        <circle class="ring r3" cx="600" cy="290" r="38"/>
-        <circle class="ring r4" cx="600" cy="180" r="60"/>
-
-        <!-- component labels -->
-        <g class="w-labels" opacity="0">
-          <path class="lbl-line" d="M762 57h40"/><text class="lbl" x="810" y="62">Top panel + fan guard</text>
-          <path class="lbl-line" d="M552 180h-48"/><text class="lbl" x="496" y="185" text-anchor="end">Fan blade</text>
-          <path class="lbl-line" d="M620 290h80"/><text class="lbl" x="708" y="295">Fan motor</text>
-          <text class="lbl" x="295" y="202" text-anchor="middle">Condenser coil</text>
-          <text class="lbl" x="905" y="202" text-anchor="middle">Louvered cabinet</text>
-          <path class="lbl-line" d="M428 446l-36 48"/><text class="lbl" x="386" y="510" text-anchor="end">Compressor</text>
-          <path class="lbl-line" d="M816 428l30 66"/><text class="lbl" x="852" y="510">Capacitor + controls</text>
-        </g>
-
-        <!-- words along the bottom -->
-        <g class="mx-txt" text-anchor="middle">
-          <g class="w-intro"><text x="600" y="540" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">NO HEAT? NO COOL?</text><text x="600" y="584" font-size="42" font-weight="800" fill="#fff">Time to call the Medic</text></g>
-          <g class="w-diag"><text x="600" y="540" font-size="16" font-weight="700" letter-spacing="4" fill="#7cc4f2">DIAGNOSIS</text><text x="600" y="584" font-size="42" font-weight="800" fill="#fff">We take it apart and find the problem</text></g>
-          <g class="val v1"><text x="600" y="548" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">OUR VALUES 01 · THE HEART OF EVERY JOB</text><text x="600" y="588" font-size="44" font-weight="800" fill="#fff">Family owned</text></g>
-          <g class="val v2"><text x="600" y="548" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">OUR VALUES 02 · CLEAR QUOTES, NO SURPRISES</text><text x="600" y="588" font-size="44" font-weight="800" fill="#fff">Fair pricing</text></g>
-          <g class="val v3"><text x="600" y="548" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">OUR VALUES 03 · WE SHOW UP WHEN WE SAY WE WILL</text><text x="600" y="588" font-size="44" font-weight="800" fill="#fff">Reliable service</text></g>
-          <g class="val v4"><text x="600" y="548" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">OUR VALUES 04 · YOUR COMFORT IS THE POINT</text><text x="600" y="588" font-size="44" font-weight="800" fill="#fff">Customer focused</text></g>
-          <g class="w-fix"><text x="600" y="540" font-size="16" font-weight="700" letter-spacing="4" fill="#7cc4f2">REASSEMBLED · TESTED</text><text x="600" y="584" font-size="42" font-weight="800" fill="#fff">Running right again</text></g>
-          <g class="w-outro"><text x="600" y="540" font-size="16" font-weight="700" letter-spacing="4" fill="#ff6b70">HVAC MEDIC · PILLAGER, MN</text><text x="600" y="584" font-size="42" font-weight="800" fill="#fff">Comfort. Quality. Elite service.</text></g>
-        </g>
-      </svg>
-      <div class="prog" aria-hidden="true"><i></i></div>
+    <div class="show rv" id="show" role="region" aria-roledescription="carousel" aria-label="HVAC Medic job photos" tabindex="0">
+      <div class="slides" aria-live="off">
+        <figure class="sl is-on" role="group" aria-roledescription="slide" aria-label="1 of 6: Central air + mini split">
+          <img src="photos/shop-ac-and-mini-split.jpg" alt="Central air + mini split installed by HVAC Medic" style="object-position:center 65%">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>New shop build · Cooling + ductless</span>
+            <h3>Central air + mini split</h3>
+            <p>A Luxaire central air condenser and a ductless mini split set side by side on a new steel shop. Clean electrical whips and level pads, ready for the first hot week.</p>
+          </figcaption>
+        </figure>
+        <figure class="sl" role="group" aria-roledescription="slide" aria-label="2 of 6: High-efficiency boiler + in-floor heat" aria-hidden="true">
+          <img src="photos/boiler-radiant-manifold.jpg" alt="High-efficiency boiler + in-floor heat installed by HVAC Medic" style="object-position:center 40%" loading="lazy">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>New shop build · Mechanical room</span>
+            <h3>High-efficiency boiler + in-floor heat</h3>
+            <p>A wall-hung high-efficiency boiler feeding a zoned in-floor radiant manifold. Warm slab, even heat and no blowing air, all winter long.</p>
+          </figcaption>
+        </figure>
+        <figure class="sl" role="group" aria-roledescription="slide" aria-label="3 of 6: High-efficiency gas furnace" aria-hidden="true">
+          <img src="photos/luxaire-furnace.jpg" alt="High-efficiency gas furnace installed by HVAC Medic" style="object-position:center 55%" loading="lazy">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>Forced-air heating · Furnace install</span>
+            <h3>High-efficiency gas furnace</h3>
+            <p>A Luxaire high-efficiency furnace with sealed PVC intake and exhaust venting, piped and wired neatly for easy service down the road.</p>
+          </figcaption>
+        </figure>
+        <figure class="sl" role="group" aria-roledescription="slide" aria-label="4 of 6: Central AC install" aria-hidden="true">
+          <img src="photos/central-ac-condenser.jpg" alt="Central AC install installed by HVAC Medic" style="object-position:center 70%" loading="lazy">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>New shop build · Cooling</span>
+            <h3>Central AC install</h3>
+            <p>The finished central air condenser, set on its pad with a service disconnect beside it. Sized to keep the shop cool through lake-country summers.</p>
+          </figcaption>
+        </figure>
+        <figure class="sl" role="group" aria-roledescription="slide" aria-label="5 of 6: Ductless indoor head" aria-hidden="true">
+          <img src="photos/mini-split-indoor.jpg" alt="Ductless indoor head installed by HVAC Medic" style="object-position:center 30%" loading="lazy">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>New shop build · Ductless</span>
+            <h3>Ductless indoor head</h3>
+            <p>A wall-mounted mini split head on the steel interior. It heats and cools the space without running any ductwork.</p>
+          </figcaption>
+        </figure>
+        <figure class="sl" role="group" aria-roledescription="slide" aria-label="6 of 6: Mini split outdoor unit" aria-hidden="true">
+          <img src="photos/mini-split-outdoor.jpg" alt="Mini split outdoor unit installed by HVAC Medic" style="object-position:center 60%" loading="lazy">
+          <figcaption class="cap">
+            <span class="cap-tag"><i></i>New shop build · Ductless</span>
+            <h3>Mini split outdoor unit</h3>
+            <p>The mini split condenser mounted on a raised stand, keeping it up out of the snow and drifting leaves.</p>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="glass-sweep" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="show-ui">
+        <span class="counter" aria-hidden="true"><b id="sl-n">01</b> / 06</span>
+        <div class="ctrls">
+          <button type="button" class="gbtn" id="sl-play" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+          <button type="button" class="gbtn" id="sl-prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="gbtn" id="sl-next" aria-label="Next photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <p class="sr" aria-live="polite" id="sl-live"></p>
     </div>
-    <div class="stage-cap"><button type="button" class="pause" id="pause" aria-pressed="false">Pause animation</button><span>Family owned · Fair pricing · Reliable service · Customer focused</span></div>
+    <div class="thumbs rv" role="group" aria-label="Choose a photo">
+        <button type="button" class="th is-on" data-go="0" aria-label="Show Central air + mini split" aria-current="true"><img src="photos/shop-ac-and-mini-split.jpg" alt="" style="object-position:center 65%"><span class="th-bar"><i></i></span><span class="th-n">01</span></button>
+        <button type="button" class="th" data-go="1" aria-label="Show High-efficiency boiler + in-floor heat"><img src="photos/boiler-radiant-manifold.jpg" alt="" style="object-position:center 40%"><span class="th-bar"><i></i></span><span class="th-n">02</span></button>
+        <button type="button" class="th" data-go="2" aria-label="Show High-efficiency gas furnace"><img src="photos/luxaire-furnace.jpg" alt="" style="object-position:center 55%"><span class="th-bar"><i></i></span><span class="th-n">03</span></button>
+        <button type="button" class="th" data-go="3" aria-label="Show Central AC install"><img src="photos/central-ac-condenser.jpg" alt="" style="object-position:center 70%"><span class="th-bar"><i></i></span><span class="th-n">04</span></button>
+        <button type="button" class="th" data-go="4" aria-label="Show Ductless indoor head"><img src="photos/mini-split-indoor.jpg" alt="" style="object-position:center 30%"><span class="th-bar"><i></i></span><span class="th-n">05</span></button>
+        <button type="button" class="th" data-go="5" aria-label="Show Mini split outdoor unit"><img src="photos/mini-split-outdoor.jpg" alt="" style="object-position:center 60%"><span class="th-bar"><i></i></span><span class="th-n">06</span></button>
+    </div>
+
+    <div class="jobs">
+      <article class="job rv">
+        <span class="when">New shop build · October 2026</span>
+        <h3>New shop. New HVAC. Done right.</h3>
+        <p>A full system for a new commercial shop: in-floor radiant heat fed by a high-efficiency boiler, forced-air heating with central AC, and a ductless mini split. The photos above are from this job.</p>
+        <ul><li>In-floor radiant</li><li>High-efficiency boiler</li><li>Forced air + AC</li><li>Mini split</li></ul>
+      </article>
+      <article class="job rv">
+        <span class="when">Furnace replacement · November 2026</span>
+        <h3>Goodbye, $600 heating bills</h3>
+        <p>This homeowner was paying about $600 a month to run a huge electric furnace. We removed it, one fire brick at a time, and installed a new high-efficiency LP furnace, plus a wall furnace for the workshop.</p>
+        <div class="stat"><div><b>228</b><span>fire bricks hauled out</span></div><div><b>26 lb</b><span>each</span></div><div><b>2</b><span>spaces heated</span></div></div>
+      </article>
+      <article class="job rv">
+        <span class="when">AC service</span>
+        <h3>A condenser that could breathe again</h3>
+        <p>This AC condenser was badly restricted with dirt, grass clippings and debris that kept it from moving air. A thorough cleaning got it cooling the way it should. If yours sits near the lawn, it's worth a look every season.</p>
+        <ul><li>Coil cleaning</li><li>Airflow restored</li></ul>
+      </article>
+    </div>
   </div>
 </section>
-
 <section id="services">
   <div class="in">
     <div class="sh rv">
@@ -242,44 +222,6 @@
         <li>Filter changes and blower cleaning</li>
       </ul>
       <a href="#contact" class="btn">Schedule a tune-up</a>
-    </div>
-  </div>
-</section>
-
-<section id="work">
-  <div class="in">
-    <div class="sh rv">
-      <div class="eyebrow">Recent work</div>
-      <h2>Real jobs, real installs</h2>
-      <p>Photos and stories from projects around the Brainerd Lakes Area.</p>
-    </div>
-    <div class="gallery rv">
-      <figure class="tall"><img src="photos/boiler-radiant-manifold.jpg" alt="High-efficiency boiler with in-floor radiant heat manifold" loading="lazy"><figcaption>Boiler &amp; in-floor heat</figcaption></figure>
-      <figure class="wide"><img src="photos/shop-ac-and-mini-split.jpg" alt="Central AC condenser and mini split outside a steel shop building" loading="lazy" style="object-position:center 65%"><figcaption>Central air + mini split</figcaption></figure>
-      <figure class="tall"><img src="photos/central-ac-condenser.jpg" alt="Central air conditioner condenser on a pad beside a shop" loading="lazy"><figcaption>Central AC install</figcaption></figure>
-      <figure><img src="photos/mini-split-indoor.jpg" alt="Ductless mini split indoor unit on a steel wall" loading="lazy"><figcaption>Ductless indoor head</figcaption></figure>
-      <figure><img src="photos/mini-split-outdoor.jpg" alt="Mini split outdoor unit on a stand" loading="lazy"><figcaption>Mini split outdoor unit</figcaption></figure>
-    </div>
-
-    <div class="jobs">
-      <article class="job rv">
-        <span class="when">New shop build · October 2026</span>
-        <h3>New shop. New HVAC. Done right.</h3>
-        <p>A full system for a new commercial shop: in-floor radiant heat fed by a high-efficiency boiler, forced-air heating with central AC, and a ductless mini split. The photos above are from this job.</p>
-        <ul><li>In-floor radiant</li><li>High-efficiency boiler</li><li>Forced air + AC</li><li>Mini split</li></ul>
-      </article>
-      <article class="job rv">
-        <span class="when">Furnace replacement · November 2026</span>
-        <h3>Goodbye, $600 heating bills</h3>
-        <p>This homeowner was paying about $600 a month to run a huge electric furnace. We removed it, one fire brick at a time, and installed a new high-efficiency LP furnace, plus a wall furnace for the workshop.</p>
-        <div class="stat"><div><b>228</b><span>fire bricks hauled out</span></div><div><b>26 lb</b><span>each</span></div><div><b>2</b><span>spaces heated</span></div></div>
-      </article>
-      <article class="job rv">
-        <span class="when">AC service</span>
-        <h3>A condenser that could breathe again</h3>
-        <p>This AC condenser was badly restricted with dirt, grass clippings and debris that kept it from moving air. A thorough cleaning got it cooling the way it should. If yours sits near the lawn, it's worth a look every season.</p>
-        <ul><li>Coil cleaning</li><li>Airflow restored</li></ul>
-      </article>
     </div>
   </div>
 </section>

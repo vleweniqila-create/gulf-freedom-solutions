@@ -8,5 +8,9 @@ Static one-page site for HVAC Medic LLC (Pillager, MN). Built from the concept t
 3. **Domain:** point the client's domain at the host, then add `<link rel="canonical">` and a full `og:image` URL in `<head>`.
 4. **Legal:** the Privacy Policy, Terms & Disclaimers and Accessibility text are in `index.html` (footer dialogs). Have Brent confirm them and fill in anything flagged in the legal review.
 
-## Motion graphic
-The "Every system has a heartbeat" section is a pure SVG + CSS animation that loops every 15 seconds: flatline, exploded view of an outdoor unit (top panel, fan, motor, coil, compressor, capacitor), four company values, reassembly and the "Comfort. Quality. Elite service." sign-off. Timing lives in the `MOTION GRAPHIC` block of `styles.css` (1% = 0.15 s). It shows a still frame for visitors who turn on reduced motion.
+## Job slideshow
+The "Our work" section is a photo slideshow of six job photos from the HVAC Medic Facebook page. It plays as a 15-second loop (6 photos x 2.5 s) with a frosted-glass sweep between photos. Customers can swipe or drag, use the arrow buttons or keyboard arrows, tap a thumbnail, or press pause. It pauses on hover, when it scrolls off screen, and it does not autoplay for visitors who turn on reduced motion.
+
+- **Labels and job details** for each photo are in `index.html` (each `<figure class="sl">` and its matching `.th` thumbnail).
+- **Timing:** change `DUR` (milliseconds per photo) in the `JOB SLIDESHOW` block of `app.js`.
+- **Add a photo:** drop it in `photos/`, copy one `<figure class="sl">` and one `<button class="th">`, and give the new thumbnail the next `data-go` number.
