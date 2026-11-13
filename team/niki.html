@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Meet Niki | Gulf Freedom Solutions</title>
 <meta name="description" content="Vereniki (Niki) Leweniqila is a web designer, product developer and co-founder of Gulf Freedom Solutions in Panama City, FL.">
 <script>document.documentElement.className='js';</script>
@@ -50,8 +52,9 @@ body.bio{--a:#6A4BC4;--b:#FFD23F;--bg:#170E33}
   </nav>
   <aside>
     <div class="menu-peek" aria-hidden="true"></div>
-    <div><b>Say hello</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a><br><a href="tel:+18505550123">(850) 555-0123</a></div>
+    <div><b>Say hello</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a></div>
     <div><b>Serving</b>Panama City · Lynn Haven · Callaway · Panama City Beach</div>
+    <div class="menu-legal"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../accessibility.html">Accessibility</a><button type="button" data-cookie-settings>Cookie settings</button></div>
   </aside>
 </div>
 
@@ -207,15 +210,16 @@ body.bio{--a:#6A4BC4;--b:#FFD23F;--bg:#170E33}
   <div class="wrap">
     <div class="foot-cols" style="margin-top:0">
       <div style="max-width:320px"><b>Gulf Freedom Solutions</b><span>Locally owned web design and social media marketing for small businesses on the Gulf Coast.</span></div>
-      <div><b>Contact</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a><a href="tel:+18505550123">(850) 555-0123</a></div>
+      <div><b>Contact</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a></div>
       <div><b>Explore</b><a href="../index.html">Home</a><a href="../start.html">Start a project</a><a href="partner.html">Meet Michael</a></div>
     </div>
     <div class="foot-bottom"><span>© <span data-year>2026</span> Gulf Freedom Solutions LLC</span><span>Panama City · Lynn Haven · Callaway · Panama City Beach</span></div>
+    <div class="foot-legal"><a href="../privacy.html">Privacy Policy</a><a href="../terms.html">Terms of Use</a><a href="../accessibility.html">Accessibility</a><button type="button" data-cookie-settings>Cookie settings</button><p>Gulf Freedom Solutions LLC is a private business. It is not affiliated with or endorsed by the U.S. Department of Defense, the U.S. Air Force or any branch of the U.S. Armed Forces.</p></div>
   </div>
 </footer>
 
 <script src="../assets/site.js"></script>
-<!-- HubSpot tracking + form capture -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/247973835.js"></script>
+<!-- Cookie consent: loads HubSpot tracking only after the visitor clicks Accept -->
+<script src="../assets/consent.js"></script>
 </body>
 </html>

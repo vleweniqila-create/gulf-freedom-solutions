@@ -73,3 +73,9 @@ textarea.big-in:focus{border-color:var(--seafoam)}
 .done-burst i{width:22px;height:22px;border-radius:4px;animation:pop .8s var(--ease) both}
 @keyframes pop{from{transform:scale(0) rotate(-45deg);opacity:0}to{transform:none;opacity:1}}
 .step h1:focus,.step h2:focus,.step [tabindex="-1"]:focus{outline:none}
+/* call/text consent + legal note */
+.consent{display:flex;gap:12px;align-items:flex-start;margin-top:20px;max-width:640px;color:var(--soft);font-size:14px;line-height:1.5;cursor:pointer}
+.consent[hidden]{display:none}
+.consent input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--seafoam)}
+.legal-note{color:var(--soft);font-size:14px;margin-top:18px;max-width:640px}
+.legal-note a{color:var(--seafoam)}

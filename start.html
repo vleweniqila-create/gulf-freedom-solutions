@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Tell Us About Your Business | Gulf Freedom Solutions</title>
 <meta name="description" content="Answer a few quick questions and Gulf Freedom Solutions will reach out to set up a free, no-pressure call.">
 <script>document.documentElement.className='js';</script>
@@ -38,8 +40,9 @@
   </nav>
   <aside>
     <div class="menu-peek" aria-hidden="true"></div>
-    <div><b>Say hello</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a><br><a href="tel:+18505550123">(850) 555-0123</a></div>
+    <div><b>Say hello</b><a href="mailto:hello@gulffreedomsolutions.com">hello@gulffreedomsolutions.com</a></div>
     <div><b>Serving</b>Panama City · Lynn Haven · Callaway · Panama City Beach</div>
+    <div class="menu-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="accessibility.html">Accessibility</a><button type="button" data-cookie-settings>Cookie settings</button></div>
   </aside>
 </div>
 
@@ -193,6 +196,7 @@
           <label class="chip"><input type="radio" name="contact_pref" value="Call"><span>Call me</span></label>
           <label class="chip"><input type="radio" name="contact_pref" value="Text"><span>Text me</span></label>
         </div>
+        <label class="consent" id="consent-row" hidden><input type="checkbox" id="f-consent" name="call_text_consent" value="Yes, agreed to calls/texts about this request" disabled><span>I agree that Gulf Freedom Solutions may call or text me at the number above about this request. No marketing texts. Message and data rates may apply. Reply STOP to opt out. Consent is not a condition of purchase.</span></label>
         <p class="err" role="alert"></p>
         <div class="nav"><button type="button" class="back">← Back</button><button type="button" class="btn btn-green next">Review my answers</button><span class="enter">press <kbd>Enter</kbd></span></div>
       </section>
@@ -201,6 +205,7 @@
         <p class="kicker">Question 11 · last step</p>
         <h2>Look good, <span data-name>friend</span>?</h2>
         <dl class="review" id="review"></dl>
+        <p class="legal-note">By sending, you agree to our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener">Terms of Use</a>. Estimates are not binding quotes.</p>
         <p class="err" role="alert"></p>
         <div class="nav"><button type="button" class="back">← Back</button><button type="submit" class="btn btn-green" data-magnet>Send my answers <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
       </section>
@@ -306,6 +311,12 @@
     var em = step.querySelector('input[type=email]');
     if (em && em.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) { err.textContent = 'That email does not look quite right.'; em.focus(); return false; }
     if (step.hasAttribute('data-auto') && !step.querySelector('input:checked')) { if (err) err.textContent = 'Pick the one that fits best.'; return false; }
+    var pref = step.querySelector('input[name=contact_pref]:checked');
+    if (pref && pref.value !== 'Email') {
+      var ph = step.querySelector('#f-phone'), cb = step.querySelector('#f-consent');
+      if (!ph.value.trim()) { err.textContent = 'Add a phone number so we can ' + pref.value.toLowerCase() + ' you.'; ph.focus(); return false; }
+      if (!cb.checked) { err.textContent = 'Please check the box so we have your OK to ' + pref.value.toLowerCase() + ' you.'; cb.focus(); return false; }
+    }
     return true;
   }
   function next() { if (valid(steps[cur])) go(cur + 1); }
@@ -315,7 +326,14 @@
     if (e.target.closest('.back')) { e.preventDefault(); go(cur - 1); }
     var ed = e.target.closest('[data-edit]'); if (ed) { e.preventDefault(); go(+ed.dataset.edit); }
   });
+  /* calls and texts need written consent (TCPA / Florida Telephone Solicitation Act) */
+  function syncConsent() {
+    var pref = form.querySelector('input[name=contact_pref]:checked'), row = document.getElementById('consent-row'), cb = document.getElementById('f-consent');
+    var need = !!pref && pref.value !== 'Email';
+    row.hidden = !need; cb.disabled = !need; if (!need) cb.checked = false;
+  }
   form.addEventListener('change', function (e) {
+    if (e.target.name === 'contact_pref') syncConsent();
     var st = e.target.closest('.step');
     if (e.target.type === 'radio' && st && st.hasAttribute('data-auto')) setTimeout(next, 380);
   });
@@ -332,7 +350,7 @@
     }
   });
 
-  var labels = { name: 'Name', business: 'Business', business_type: 'Type', online_today: 'Online today', 'help_with[]': 'Help with', goal: 'Main goal', story: 'Your story', budget: 'Monthly budget', timeline: 'Start', email: 'Email', phone: 'Phone', contact_pref: 'Reach me by' };
+  var labels = { name: 'Name', business: 'Business', business_type: 'Type', online_today: 'Online today', 'help_with[]': 'Help with', goal: 'Main goal', story: 'Your story', budget: 'Monthly budget', timeline: 'Start', email: 'Email', phone: 'Phone', contact_pref: 'Reach me by', call_text_consent: 'Call/text OK' };
   function buildReview() {
     var fd = new FormData(form), out = {}, where = {};
     fd.forEach(function (v, k) { if (!labels[k] || !String(v).trim()) return; out[k] = out[k] ? out[k] + ', ' + v : v; });
@@ -373,7 +391,7 @@
   render();
 })();
 </script>
-<!-- HubSpot tracking + form capture -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/247973835.js"></script>
+<!-- Cookie consent: loads HubSpot tracking only after the visitor clicks Accept -->
+<script src="assets/consent.js"></script>
 </body>
 </html>
