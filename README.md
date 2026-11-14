@@ -14,3 +14,10 @@ Website for Gulf Freedom Solutions LLC, a locally owned web design and social me
 - Security contact: `.well-known/security.txt`.
 
 © Gulf Freedom Solutions LLC. All rights reserved. See `LICENSE`.
+
+## Search engines (SEO)
+- Every page has its own title, description, canonical URL, Open Graph/Twitter share tags and JSON-LD structured data (business, website, people, breadcrumbs). Keep facts in the JSON-LD true: no street address or phone until they are real, and no "veteran-owned".
+- Share image: `assets/og-image.jpg` (1200x630).
+- `sitemap.xml` lists every public page. Add new pages there and bump `<lastmod>`.
+- `robots.txt` allows all crawlers and points to the sitemap.
+- Each deploy pings IndexNow (Bing, Yandex and others) using the key file `6a8db72c8177c591a5650b1a404043d9.txt` at the root. Do not delete that file.
