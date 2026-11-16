@@ -1,0 +1,5 @@
+# Gulf Freedom Solutions: all search engines welcome.
+User-agent: *
+Allow: /
+
+Sitemap: https://gulffreedomsolutions.com/sitemap.xml
